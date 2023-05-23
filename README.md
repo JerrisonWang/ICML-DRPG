@@ -10,8 +10,8 @@ There are two folders . The folder `Garnet Problem` includes:
 
 The folder `Inventory Management Problem` includes:
 
-1. Python codes for a simple function collections and,
-2. Python codes for generating a inventory problem with parameterized transition and applying DRPG to solve it.
-
+1. Python codes for a simple function collections,
+2. Python codes for generating a inventory problem with parameterized transition and applying DRPG to solve it and,
+3. Two CSV files which specify the cost and the empirical transition of the inventory management problem.
 
 
