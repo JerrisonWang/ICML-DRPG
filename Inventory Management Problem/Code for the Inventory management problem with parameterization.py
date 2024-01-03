@@ -279,7 +279,6 @@ class GARNET_MDP:
                     sclar = 1/(sqrt(2*(2**2)*math.pi))
                     f_sa[k,i*lenth_action+j] = sclar*(up/down) 
         return f_sa
-      
 #%%
 '''
 Problem Declaration 
@@ -318,6 +317,27 @@ c_s1 = np.array([-1, 2])
 c_s2 = np.array([0.3, -0.6])
 c_sa1 = np.array([1.3, 2.1, 1])
 c_sa2 = np.array([-0.7, 1.5, 0.5])
+
+#%%
+'''
+Parametric transition function
+'''
+def Trans_Psa(theta, lamda, index_state, index_action, feature_s, feature_sa, empri_Psa):
+    p_sa = np.zeros(len(feature_s[1]))
+    down = 0
+    for j in range(len(feature_s[1])):
+        down += empri_Psa[j]*np.exp(np.dot(theta,feature_s[:,j])/np.dot(lamda, feature_sa[:,3*index_state+index_action]))
+    for i in range(len(feature_s[1])):
+        up = empri_Psa[i]*np.exp(np.dot(theta,feature_s[:,i])/np.dot(lamda, feature_sa[:,3*index_state+index_action]))
+        p_sa[i] = up / down
+    return p_sa
+
+def Trans_P(theta, lamda, feature_s, feature_sa, empri_P):
+    P = np.zeros((8,24))
+    for i in range(8):
+        for j in range(3):
+            P[:,3*i+j] = Trans_Psa(theta, lamda, i, j, feature_s, feature_sa, empri_P[:,3*i+j])
+    return P
 
 #%%
 '''
